@@ -1,0 +1,67 @@
+{
+    "accs": [
+        5
+    ],
+    "inits": [
+        0
+    ],
+    "states": [
+        {
+            "edges": [
+                {
+                    "character": "a",
+                    "target": 1
+                }
+            ],
+            "id": 0
+        },
+        {
+            "edges": [
+                {
+                    "character": "ε",
+                    "target": 4
+                }
+            ],
+            "id": 1
+        },
+        {
+            "edges": [
+                {
+                    "character": "b",
+                    "target": 3
+                }
+            ],
+            "id": 2
+        },
+        {
+            "edges": [
+                {
+                    "character": "ε",
+                    "target": 5
+                },
+                {
+                    "character": "ε",
+                    "target": 2
+                }
+            ],
+            "id": 3
+        },
+        {
+            "edges": [
+                {
+                    "character": "ε",
+                    "target": 5
+                },
+                {
+                    "character": "ε",
+                    "target": 2
+                }
+            ],
+            "id": 4
+        },
+        {
+            "edges": null,
+            "id": 5
+        }
+    ]
+}
