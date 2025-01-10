@@ -8,7 +8,55 @@ function App() {
     const [input, setInput] = useState('')
     const [data, setData] = useState(null)
 
+    const isValidRegex = (pattern) => {
+        if (pattern.includes('@')) return false
+        try {
+            new RegExp(pattern)
+            return true
+        } catch (e) {
+            return false
+        }
+    }
+
+    const showToast = (message) => {
+        // 创建提示容器
+        const toast = document.createElement('div')
+        toast.textContent = message
+
+        // 样式设置
+        toast.style.position = 'fixed'
+        toast.style.top = '60px' // 设置到页面顶部
+        toast.style.left = '50%'
+        toast.style.transform = 'translateX(-50%)'
+        toast.style.backgroundColor = 'rgba(255, 182, 193, 0.9)' // 设置淡红色背景
+        toast.style.color = '#000' // 使用黑色文字
+        toast.style.padding = '10px 20px'
+        toast.style.borderRadius = '5px'
+        toast.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.2)'
+        toast.style.fontSize = '14px'
+        toast.style.zIndex = '9999'
+        toast.style.transition = 'opacity 0.5s ease'
+        toast.style.fontFamily = 'Arial, sans-serif'
+        toast.style.letterSpacing = '0.5px'
+
+        // 动画效果
+        toast.style.animation = 'fadeIn 0.3s ease-out'
+
+        // 将提示添加到页面
+        document.body.appendChild(toast)
+
+        // 设置消失逻辑
+        setTimeout(() => {
+            toast.style.opacity = '0' // 渐隐
+            setTimeout(() => toast.remove(), 500) // 从 DOM 中移除
+        }, 500) // 1 秒后开始消失
+    }
+
     const handleSubmit = async () => {
+        if (!isValidRegex(input)) {
+            showToast('不合法的正规表达式！')
+            return
+        }
         try {
             const res = await fetch(`http://localhost:8080/${kind}`, {
                 method: 'POST',
@@ -78,7 +126,7 @@ function App() {
                 type='text'
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder='注意输入格式（*表示闭包，|表示选择）'
+                placeholder='注意输入格式（*表示闭包，|表示选择，含@的正规式无法识别）'
             />
             <div style={{ marginTop: '20px' }}>
                 <Select
